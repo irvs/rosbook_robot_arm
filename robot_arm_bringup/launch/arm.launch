@@ -1,0 +1,13 @@
+<launch>
+
+  <node pkg="arbotix_python" type="arbotix_driver" name="arbotix" output="screen">
+      <rosparam file="$(find robot_arm_bringup)/config/arm.yaml" command="load" />
+  </node>
+
+  <node pkg="arbotix_controllers" type="gripper_controller" name="gripper_controller">
+      <param name="model" value="singlesided"/>
+      <param name="invert" value="true"/>
+      <param name="pad_width" value="0.0254"/>
+  </node>
+
+</launch>

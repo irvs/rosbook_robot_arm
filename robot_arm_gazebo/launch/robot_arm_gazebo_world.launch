@@ -1,0 +1,20 @@
+<launch>
+  <arg name="robot_name" value="robot_arm"/>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">    
+    <arg name="world_name" value="$(find robot_arm_gazebo)/worlds/default.world"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <param name="robot_description" 
+    command="$(find xacro)/xacro.py $(find robot_arm_description)/urdf/arm.urdf.xacro" />
+
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_$(arg robot_name)"
+        args="-urdf -model $(arg robot_name) -param robot_description"
+        respawn="false"
+        output="screen" />
+</launch>
